@@ -1,0 +1,77 @@
+body {
+    background-color: lightsteelblue; 
+    text-align: center;
+
+}
+h2 {
+    color: white;
+}
+table {
+    width: 660px;
+    background: #133358;
+    padding: 30px;
+    border-radius: 5%;
+    box-shadow: 12px 15px 0px 0 rgba(46, 61, 73, 0.5);
+    margin: auto;
+
+}
+td {
+    width: 90px;
+    height: 90px;
+    background-color: white; 
+    border-radius: 50%;
+}
+button {
+    width: 100px;
+    height: 30px;
+    margin: 30px;
+}
+button:hover {
+    background-color: blue;
+}
+.modalbackground {
+    position: fixed;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.45);
+}
+.modalbody {
+    position: relative;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    background: #ffffff;
+}
+.modalclose {
+    float: right;
+    padding-right: 10px;
+}
+.modaltitle {
+    padding-top: 20px;
+}
+
+.hide {
+    display: none;
+}
+#circle37 {
+    background-color: red;
+}
+#circle30 {
+    background-color: red;
+}
+#circle35 {
+    background-color: yellow;
+}
+
+@media screen and (max-width: 660px) {
+    table {
+        width: 400px;
+    }
+    td {
+        width: 50px;
+        height: 50px;
+    }
+}
