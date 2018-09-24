@@ -1,37 +1,53 @@
-//  Write a CONNECT 4 game
-
-//  Set 2 players (colors) - variables
+/*----- constants -----*/
 var players = {
     "1": "red",
     "-1": "yellow",
     "null": "white"
 };
 
-var board;
+/*----- app's state (variables) -----*/
+var gameboard = [];
 var turn;
 var winner;
 
-//  Setting the board has an array (column)
-//  User can click on a circle
-//  When circle is clicked change to the Player's color
-//  If the column has empty circles below the one clicked, move circle to bottom (drop the piece to bottom)
-// if column is filled - show message to try again
-//  after clicked, change the player's turn (color)
+/*----- cached element references -----*/
+var board = document.getElementById('board');
 
-//  Check for win/loss
-//      if there are 4 circles of the same color(player) in any direction, there is a winner.
-//      if all the circles on the board are filled, is a tie game.
-// process by column from left to right - check right/top/up-right (pic wall)
+/*----- event listeners -----*/
+board.addEventListener('click', clickSlot);
 
+/*----- functions -----*/
+function render() {
+    gameboard.forEach( function(col, colIdx) {
+        col.forEach( function(cell, rowIdx ) {
+            var td = document.getElementById(`c${colIdx}r${rowIdx}`);
+            td.style.background = players[cell];
+        });
+    });
+};
 
-// Messages
-//      WINNER - display a modal box -"Player X won!"
-//      TIE GAME - display a modal box "It's a tie game, play again?"
-//      circle is already clicked - show message "Try again." (modal?)
+function clickSlot(evt) {
+    var target = evt.target;
+    if (target.tagName !== 'TD') return;
+    var col = parseInt(evt.target.id.charAt(1));
+    if (!gameboard[col].includes(null)) {
+        alert('try another column');
+    };
+    var row = gameboard[col].indexOf(null);
+    gameboard[col][row] = turn;
+    turn *= -1;
+    render();
+    getWinner();
+};
 
-//  Reset game
-//      Clear the board
-//      Reset player
+function initialize() {
+    for (col = 0; col <= 6; col++) {
+        gameboard[col] = [];
+        for (row = 0; row <=5; row++) {
+            gameboard[col][row] = null;
+        };
+    };
+    turn = 1;
+};
 
-// Render game
-
+initialize();

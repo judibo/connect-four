@@ -21,6 +21,9 @@ td {
     background-color: white; 
     border-radius: 50%;
 }
+td:hover {
+    background-color: gray; 
+}
 button {
     width: 100px;
     height: 30px;
@@ -55,15 +58,6 @@ button:hover {
 
 .hide {
     display: none;
-}
-#circle37 {
-    background-color: red;
-}
-#circle30 {
-    background-color: red;
-}
-#circle35 {
-    background-color: yellow;
 }
 
 @media screen and (max-width: 660px) {
