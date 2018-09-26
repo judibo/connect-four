@@ -1,12 +1,12 @@
 body {
-    background-color: lightsteelblue; 
+    /* background-color: lightsteelblue;  */
     text-align: center;
     font-family: 'Acme', sans-serif;
     margin: auto;
     width: 660px;
 }
 .title {
-    color: white;
+    color: red;
 }
 .playerturn {
     text-transform: uppercase;
@@ -22,6 +22,18 @@ img {
     height: 30px;
     width: 30px;
 }
+img:hover {
+    transition: 0.70s;
+    -webkit-transition: 0.70s;
+    -moz-transition: 0.70s;
+    -ms-transition: 0.70s;
+    -o-transition: 0.70s;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 table {
     width: 660px;
     background: #133358;
@@ -38,19 +50,9 @@ td {
     border-radius: 50%;
 }
 td:hover {
-    background-color: gray; 
+    background-color: gray!important; 
 }
 
-button {
-    width: 130px;
-    height: 40px;
-    font-size: 15px;
-    margin: 30px;
-}
-button:hover {
-    background-color: gray;
-    color: white;
-}
 .modalbackground {
     position: fixed;
     top:0;
@@ -61,13 +63,23 @@ button:hover {
 }
 .modalbody {
     position: relative;
-    width: 400px;
+    width: 300px;
+    height: 150px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -70%);
     background: lightsteelblue;
     border-radius: 2%;
     box-shadow: 5px 5px 0px 0 rgba(21, 21, 21, 0.5);
+}
+button {
+    width: 130px;
+    height: 40px;
+    font-size: 15px;
+}
+button:hover {
+    background-color: gray;
+    color: white;
 }
 .modalclose {
     float: right;
@@ -81,6 +93,9 @@ button:hover {
     display: none;
 }
 @media screen and (max-width: 660px) {
+    body {
+        width: 400px;
+    }
     table {
         width: 400px;
     }
