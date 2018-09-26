@@ -1,5 +1,12 @@
 # Connect Four Game
 
+## Technologies Used
+* HTML
+* CSS
+* Javascript
+
+
+## Getting Started
 
 
 ## Pseudocode

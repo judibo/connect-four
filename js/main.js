@@ -27,19 +27,23 @@ function replay() {
     initialize();
     render();
     toggleModal();
-}
+};
 
 function reset() {
     initialize();
     render();
-}
+};
 
 function toggleModal() {
 	const modal = document.querySelector('.modalbackground');
     modal.classList.toggle('hide');
-    var winningMessage = document.querySelector('.modaltitle');
-    winningMessage.textContent = `${players} WON!`;
-}
+    var resultMessage = document.querySelector('.modaltitle');
+    if (winner) {
+        resultMessage.textContent = `${winner} WON!`;
+    } else {
+        resultMessage.textContent = `It's a tie`;
+    };
+};
 
 function winUp(colIdx, rowIdx) {
     if (rowIdx > 2) return null;
@@ -69,7 +73,7 @@ function checkForWin(colIdx, rowIdx) {
     winner = winUpRight(colIdx, rowIdx);
     if (winner) return winner;
     return winDownRight(colIdx, rowIdx);
-}
+};
 
 function getWinnner() {
     for (var colIdx = 0; colIdx < gameboard.length; colIdx++) {
