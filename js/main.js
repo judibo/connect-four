@@ -1,18 +1,21 @@
 /*----- constants -----*/
 var players = {
-    "1": "red",
-    "-1": "yellow",
-    "null": "white"
+    '1': 'red',
+    '-1': 'yellow',
+    'null': 'white'
 };
 
 /*----- app's state (variables) -----*/
 var gameboard = [];
 var turn;
 var winner;
+var turnCounter;
+var beepAudio = new Audio('http://soundbible.com/mp3/Robot_blip-Marianne_Gagnon-120342607.mp3');
+
 
 /*----- cached element references -----*/
 var board = document.getElementById('board');
-var resetBtn = document.querySelector('button');
+var resetBtn = document.querySelector('#resetbtn');
 var replayBtn = document.querySelector('.modalbutton');
 
 
@@ -20,6 +23,7 @@ var replayBtn = document.querySelector('.modalbutton');
 board.addEventListener('click', clickSlot);
 resetBtn.addEventListener('click', reset);
 replayBtn.addEventListener('click', replay);
+document.querySelector('.modalclose').addEventListener('click',toggleModal);
 
 /*----- functions -----*/
 
@@ -35,13 +39,12 @@ function reset() {
 };
 
 function toggleModal() {
-	const modal = document.querySelector('.modalbackground');
-    modal.classList.toggle('hide');
+	document.querySelector('.modalbackground').classList.toggle('hide');
     var resultMessage = document.querySelector('.modaltitle');
     if (winner) {
-        resultMessage.textContent = `${winner} WON!`;
+        resultMessage.textContent = `${players[winner]} WON!`;
     } else {
-        resultMessage.textContent = `It's a tie`;
+        resultMessage.textContent = `It's a tie!`;
     };
 };
 
@@ -64,6 +67,17 @@ function winDownRight(colIdx, rowIdx) {
     if (colIdx > 3 && rowIdx < 6 ) return null;
     return Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx-1] + gameboard[colIdx+2][rowIdx-2] + gameboard[colIdx+3][rowIdx-3]) === 4 ? gameboard[colIdx][rowIdx] : null;
 };
+function checkForTie() {
+    if (winner === null && turnCounter === 42) {
+        return true;
+    };
+    
+    // for (var colIdx = 0; colIdx < gameboard.length; colIdx++) {
+    //     for ( var rowIdx = 0; rowIdx < gameboard[colIdx].length; rowIdx++) {
+    //         // return (winner === null && gameboard[colIdx][rowIdx] !== null) ? true : false;
+    //     };
+    // };
+};
 
 function checkForWin(colIdx, rowIdx) {
     winner = winUp(colIdx, rowIdx);
@@ -72,7 +86,7 @@ function checkForWin(colIdx, rowIdx) {
     if (winner) return winner;
     winner = winUpRight(colIdx, rowIdx);
     if (winner) return winner;
-    return winDownRight(colIdx, rowIdx);
+    return winDownRight(colIdx, rowIdx);  
 };
 
 function getWinnner() {
@@ -94,20 +108,29 @@ function render() {
             td.style.background = players[cell];
         });
     });
+    document.querySelector('.playerturn').textContent = `${players[turn]}'s turn`;
+
     if (winner) {
         toggleModal();
-    };
+    } 
+    else if (checkForTie()) {
+        toggleModal();
+    }
 };
 
 function clickSlot(evt) {
+    if (winner !== null) return;
     var target = evt.target;
     if (target.tagName !== 'TD') return;
     var col = parseInt(evt.target.id.charAt(1));
     if (!gameboard[col].includes(null));
     var row = gameboard[col].indexOf(null);
+    beepAudio.play();
     gameboard[col][row] = turn;
     winner = getWinnner();
+    checkForTie();
     turn *= -1;
+    turnCounter += 1;
     render();
 };
 
@@ -119,6 +142,7 @@ function initialize() {
         };
     };
     turn = 1;
+    turnCounter = 0;
     winner = null;
 };
 

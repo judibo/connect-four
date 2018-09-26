@@ -1,10 +1,26 @@
 body {
     background-color: lightsteelblue; 
     text-align: center;
-
+    font-family: 'Acme', sans-serif;
+    margin: auto;
+    width: 660px;
 }
-h2 {
+.title {
     color: white;
+}
+.playerturn {
+    text-transform: uppercase;
+    font-size: 20px;
+    float: left;
+    padding-left: 30px;
+}
+#resetbtn {
+    padding-right: 30px;
+    float: right;
+}
+img {
+    height: 30px;
+    width: 30px;
 }
 table {
     width: 660px;
@@ -12,25 +28,28 @@ table {
     padding: 30px;
     border-radius: 5%;
     box-shadow: 12px 15px 0px 0 rgba(46, 61, 73, 0.5);
-    margin: auto;
-
+    margin-bottom: 30px;
+    margin: 30px auto;
 }
 td {
-    width: 90px;
-    height: 90px;
+    /* width: 90px; */
+    height: 80px;
     background-color: white; 
     border-radius: 50%;
 }
 td:hover {
     background-color: gray; 
 }
+
 button {
-    width: 100px;
-    height: 30px;
+    width: 130px;
+    height: 40px;
+    font-size: 15px;
     margin: 30px;
 }
 button:hover {
-    background-color: blue;
+    background-color: gray;
+    color: white;
 }
 .modalbackground {
     position: fixed;
@@ -46,7 +65,9 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -70%);
-    background: #ffffff;
+    background: lightsteelblue;
+    border-radius: 2%;
+    box-shadow: 5px 5px 0px 0 rgba(21, 21, 21, 0.5);
 }
 .modalclose {
     float: right;
@@ -54,12 +75,11 @@ button:hover {
 }
 .modaltitle {
     padding-top: 20px;
+    text-transform: uppercase
 }
-
 .hide {
     display: none;
 }
-
 @media screen and (max-width: 660px) {
     table {
         width: 400px;

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css"> 
-
+    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <title>Connect Four</title>
 </head>
 <body>
     <header>
-        <h2>CONNECT FOUR</h2>
-        <div class="player-turn">
-        </div>
+        <h1 class="title">CONNECT FOUR</h1>
+        <div class="playerturn">RED'S TURN</div>
+        <div id="resetbtn"><img src="img/refresh-button.png"></div>
     </header>
     <main>
         <table id="board">
@@ -71,8 +71,6 @@
                 <td id="c6r0"></td>
             </tr>        
         </table>
-
-        <button>RESET</button>
         <div class="modalbackground hide">
             <div class="modalbody">
                 <div class="modalheading">
@@ -80,12 +78,11 @@
                     <h1 class="modaltitle">Message here!</h1>
                 </div>
                 <div class="modalbutton">
-                    <button class="modalbutton">Replay</button>
+                    <button class="modalbutton">REPLAY</button>
                 </div>
             </div>
         </div>
     </main>
     <script src="js/main.js"></script>
-
 </body>
 </html>
