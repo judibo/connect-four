@@ -12,48 +12,75 @@ var winner;
 
 /*----- cached element references -----*/
 var board = document.getElementById('board');
+var resetBtn = document.querySelector('button');
+var replayBtn = document.querySelector('.modalbutton');
+
 
 /*----- event listeners -----*/
 board.addEventListener('click', clickSlot);
+resetBtn.addEventListener('click', reset);
+replayBtn.addEventListener('click', replay);
 
 /*----- functions -----*/
 
-function checkForWin() {
-    //check vertical
-    for (var colIdx = 0; colIdx <= 6; colIdx++) {
-        for ( var rowIdx = 0; rowIdx <= 5; rowIdx++) {
-            Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx][rowIdx+1] + gameboard[colIdx][rowIdx+2] + gameboard[colIdx][rowIdx+3]) === 4 ? alert(`Winner is: ${players[turn]}`) : null;
-        };
-    };
-    //check horizontal
-    for (var colIdx = 0; colIdx <= 3; colIdx++) {
-        for ( var rowIdx = 0; rowIdx <= 5; rowIdx++) {
-            // totalSumRight === 4 ? alert (`Winner is: ${players[turn]}`) : null;
-            Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx] + gameboard[colIdx+2][rowIdx] + gameboard[colIdx+3][rowIdx]) === 4 ? alert(`Winner is: ${players[turn]}`) : null;
-        };
-    };
-    //check diagonal up
-    for (var colIdx = 0; colIdx <= 3; colIdx++) {
-        for ( var rowIdx = 0; rowIdx <= 5; rowIdx++) {
-            Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx+1] + gameboard[colIdx+2][rowIdx+2] + gameboard[colIdx+3][rowIdx+3]) === 4 ? alert(`Winner is: ${players[turn]}`) : null;
-        };
-    };
+function replay() {
+    initialize();
+    render();
+    toggleModal();
+}
+
+function reset() {
+    initialize();
+    render();
+}
+
+function toggleModal() {
+	const modal = document.querySelector('.modalbackground');
+    modal.classList.toggle('hide');
+    var winningMessage = document.querySelector('.modaltitle');
+    winningMessage.textContent = `${players} WON!`;
+}
+
+function winUp(colIdx, rowIdx) {
+    if (rowIdx > 2) return null;
+    return Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx][rowIdx+1] + gameboard[colIdx][rowIdx+2] + gameboard[colIdx][rowIdx+3]) === 4 ? gameboard[colIdx][rowIdx] : null;
 };
 
-            // var sumUpRight = (gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx+1] + gameboard[colIdx+2][rowIdx+2] + gameboard[colIdx+3][rowIdx+3]);
-            // var totalSumUpRight = Math.abs(sumUpRight);
-            // totalSumUpRight === 4 ? alert (`Winner is: ${players[turn]}`) : null;
+function winSide(colIdx, rowIdx) {
+    if (colIdx > 3) return null;
+    return Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx] + gameboard[colIdx+2][rowIdx] + gameboard[colIdx+3][rowIdx]) === 4 ? gameboard[colIdx][rowIdx] : null;
+};
 
+function winUpRight(colIdx, rowIdx) {
+    if (colIdx > 3) return null;
+    return Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx+1] + gameboard[colIdx+2][rowIdx+2] + gameboard[colIdx+3][rowIdx+3]) === 4 ? gameboard[colIdx][rowIdx] : null;
+};
 
+function winDownRight(colIdx, rowIdx) {
+    if (colIdx > 3 && rowIdx < 6 ) return null;
+    return Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx-1] + gameboard[colIdx+2][rowIdx-2] + gameboard[colIdx+3][rowIdx-3]) === 4 ? gameboard[colIdx][rowIdx] : null;
+};
+
+function checkForWin(colIdx, rowIdx) {
+    winner = winUp(colIdx, rowIdx);
+    if (winner) return winner;
+    winner = winSide(colIdx, rowIdx);
+    if (winner) return winner;
+    winner = winUpRight(colIdx, rowIdx);
+    if (winner) return winner;
+    return winDownRight(colIdx, rowIdx);
+}
 
 function getWinnner() {
     for (var colIdx = 0; colIdx < gameboard.length; colIdx++) {
         for ( var rowIdx = 0; rowIdx < gameboard[colIdx].length; rowIdx++) {
             if (gameboard[colIdx][rowIdx] === null) break;
+            winner = checkForWin(colIdx, rowIdx);
             if (winner) break;
         };
         if (winner) break;
-    };        
+    };
+    return winner;  
 };      
 
 function render() {
@@ -63,6 +90,9 @@ function render() {
             td.style.background = players[cell];
         });
     });
+    if (winner) {
+        toggleModal();
+    };
 };
 
 function clickSlot(evt) {
@@ -72,7 +102,6 @@ function clickSlot(evt) {
     if (!gameboard[col].includes(null));
     var row = gameboard[col].indexOf(null);
     gameboard[col][row] = turn;
-    checkForWin();
     winner = getWinnner();
     turn *= -1;
     render();
