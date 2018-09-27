@@ -28,7 +28,6 @@ replayBtn.addEventListener('click', replay);
 document.querySelector('.modal-close').addEventListener('click',toggleModal);
 
 /*----- functions -----*/
-
 function replay() {
     initialize();
     render();
