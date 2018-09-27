@@ -57,7 +57,6 @@ table {
 }
 
 td {
-    /* width: 90px; */
     height: 80px;
     background-color: white; 
     border-radius: 50%;
@@ -146,13 +145,7 @@ a {
     }
    
     header {
-        display: grid;
-        grid-template-rows: 1fr 0.5fr;
         grid-template-columns: 1fr 1fr 0.5fr;
-        grid-template-areas: "header header header"
-                             "player instructions reset";
-        align-items: center;
-        justify-content: center;
     }
 
     table {

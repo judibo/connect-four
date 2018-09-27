@@ -10,7 +10,9 @@ var gameboard = [];
 var turn;
 var winner;
 var turnCounter;
-var beepAudio = new Audio('http://soundbible.com/mp3/Robot_blip-Marianne_Gagnon-120342607.mp3');
+var dropAudio = new Audio('http://soundbible.com/mp3/Robot_blip-Marianne_Gagnon-120342607.mp3');
+var winAudio = new Audio('audio/tada.mp3');
+var tieAudio = new Audio('audio/tie.mp3');
 
 
 /*----- cached element references -----*/
@@ -106,9 +108,10 @@ function render() {
     document.querySelector('.player-turn').textContent = `${players[turn]}'s turn`;
     if (winner) {
         toggleModal();
-    } 
-    else if (checkForTie()) {
+        winAudio.play();
+    } else if (checkForTie()) {
         toggleModal();
+        tieAudio.play();
     };
 };
 
@@ -119,7 +122,7 @@ function clickSlot(evt) {
     var col = parseInt(evt.target.id.charAt(1));
     if (!gameboard[col].includes(null)) return;
     var row = gameboard[col].indexOf(null);
-    beepAudio.play();
+    dropAudio.play();
     gameboard[col][row] = turn;
     winner = getWinnner();
     turn *= -1;
