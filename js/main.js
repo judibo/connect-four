@@ -15,15 +15,15 @@ var beepAudio = new Audio('http://soundbible.com/mp3/Robot_blip-Marianne_Gagnon-
 
 /*----- cached element references -----*/
 var board = document.getElementById('board');
-var resetBtn = document.querySelector('#resetbtn');
-var replayBtn = document.querySelector('.modalbutton');
+var resetBtn = document.querySelector('#reset-btn');
+var replayBtn = document.querySelector('.modal-button');
 
 
 /*----- event listeners -----*/
 board.addEventListener('click', clickSlot);
 resetBtn.addEventListener('click', reset);
 replayBtn.addEventListener('click', replay);
-document.querySelector('.modalclose').addEventListener('click',toggleModal);
+document.querySelector('.modal-close').addEventListener('click',toggleModal);
 
 /*----- functions -----*/
 
@@ -39,8 +39,8 @@ function reset() {
 };
 
 function toggleModal() {
-	document.querySelector('.modalbackground').classList.toggle('hide');
-    var resultMessage = document.querySelector('.modaltitle');
+	document.querySelector('.modal-background').classList.toggle('hide');
+    var resultMessage = document.querySelector('.modal-title');
     if (winner) {
         resultMessage.textContent = `${players[winner]} WON!`;
     } else {
@@ -67,16 +67,11 @@ function winDownRight(colIdx, rowIdx) {
     if (colIdx > 3 && rowIdx < 6 ) return null;
     return Math.abs(gameboard[colIdx][rowIdx] + gameboard[colIdx+1][rowIdx-1] + gameboard[colIdx+2][rowIdx-2] + gameboard[colIdx+3][rowIdx-3]) === 4 ? gameboard[colIdx][rowIdx] : null;
 };
+
 function checkForTie() {
     if (winner === null && turnCounter === 42) {
         return true;
     };
-    
-    // for (var colIdx = 0; colIdx < gameboard.length; colIdx++) {
-    //     for ( var rowIdx = 0; rowIdx < gameboard[colIdx].length; rowIdx++) {
-    //         // return (winner === null && gameboard[colIdx][rowIdx] !== null) ? true : false;
-    //     };
-    // };
 };
 
 function checkForWin(colIdx, rowIdx) {
@@ -86,7 +81,7 @@ function checkForWin(colIdx, rowIdx) {
     if (winner) return winner;
     winner = winUpRight(colIdx, rowIdx);
     if (winner) return winner;
-    return winDownRight(colIdx, rowIdx);  
+    return winDownRight(colIdx, rowIdx);
 };
 
 function getWinnner() {
@@ -105,30 +100,28 @@ function render() {
     gameboard.forEach( function(col, colIdx) {
         col.forEach( function(cell, rowIdx ) {
             var td = document.getElementById(`c${colIdx}r${rowIdx}`);
-            td.style.background = players[cell];
+            td.className = players[cell];
         });
     });
-    document.querySelector('.playerturn').textContent = `${players[turn]}'s turn`;
-
+    document.querySelector('.player-turn').textContent = `${players[turn]}'s turn`;
     if (winner) {
         toggleModal();
     } 
     else if (checkForTie()) {
         toggleModal();
-    }
+    };
 };
 
 function clickSlot(evt) {
     if (winner !== null) return;
     var target = evt.target;
-    if (target.tagName !== 'TD') return;
+    if (target.tagName !== 'TD' || winner) return;
     var col = parseInt(evt.target.id.charAt(1));
-    if (!gameboard[col].includes(null));
+    if (!gameboard[col].includes(null)) return;
     var row = gameboard[col].indexOf(null);
     beepAudio.play();
     gameboard[col][row] = turn;
     winner = getWinnner();
-    checkForTie();
     turn *= -1;
     turnCounter += 1;
     render();

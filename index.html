@@ -11,8 +11,9 @@
 <body>
     <header>
         <h1 class="title">CONNECT FOUR</h1>
-        <div class="playerturn">RED'S TURN</div>
-        <div id="resetbtn"><img src="img/refresh-button.png"></div>
+        <div class="player-turn">RED'S TURN</div>
+        <div><a href="#instructions">Instructions ></a></div>
+        <div id="reset-btn"><img src="img/refresh-button.png" alt="reset"></div>
     </header>
     <main>
         <table id="board">
@@ -71,14 +72,19 @@
                 <td id="c6r0"></td>
             </tr>        
         </table>
-        <div class="modalbackground hide">
-            <div class="modalbody">
-                <div class="modalheading">
-                    <span class="modalclose">x</span>
-                    <h1 class="modaltitle">Message here!</h1>
+        <div id="instructions">
+            <h2>Instructions</h2>
+            <h3>Objective:</h3>
+            <p>To win Connect Four you must be the first player to get four of your colored checkers in a row either horizontally, vertically or diagonally.</p> 
+        </div>
+        <div class="modal-background hide">
+            <div class="modal-body">
+                <div class="modal-heading">
+                    <span class="modal-close">x</span>
+                    <h1 class="modal-title">Message here!</h1>
                 </div>
-                <div class="modalbutton">
-                    <button class="modalbutton">REPLAY</button>
+                <div class="modal-button">
+                    <button class="modal-button">REPLAY</button>
                 </div>
             </div>
         </div>

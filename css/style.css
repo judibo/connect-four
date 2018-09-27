@@ -1,27 +1,39 @@
 body {
-    /* background-color: lightsteelblue;  */
     text-align: center;
     font-family: 'Acme', sans-serif;
     margin: auto;
     width: 660px;
+    color: #133358;
+    background-image: url("../img/bgconnectfour.png");
+    background-attachment: fixed;
+    background-size: cover;
 }
+
+header {
+    display: grid;
+    grid-template-rows: 1fr 0.5fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "header header header"
+                         "player instructions reset";
+    align-items: center;
+    justify-content: center;
+}
+
 .title {
     color: red;
+    grid-area: header;
 }
-.playerturn {
+
+.player-turn {
     text-transform: uppercase;
     font-size: 20px;
-    float: left;
-    padding-left: 30px;
 }
-#resetbtn {
-    padding-right: 30px;
-    float: right;
-}
+
 img {
     height: 30px;
     width: 30px;
 }
+
 img:hover {
     transition: 0.70s;
     -webkit-transition: 0.70s;
@@ -33,35 +45,50 @@ img:hover {
     -o-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
     transform: rotate(360deg);
-  }
+}
+
 table {
     width: 660px;
     background: #133358;
     padding: 30px;
     border-radius: 5%;
     box-shadow: 12px 15px 0px 0 rgba(46, 61, 73, 0.5);
-    margin-bottom: 30px;
-    margin: 30px auto;
+    margin: 0 auto;
 }
+
 td {
     /* width: 90px; */
     height: 80px;
     background-color: white; 
     border-radius: 50%;
 }
-td:hover {
-    background-color: gray!important; 
+
+td.white {
+    background-color: white;
 }
 
-.modalbackground {
+td.red {
+    background-color: red;
+}
+
+td.yellow {
+    background-color: yellow;
+}
+
+#board td:hover {
+    background-color: gray; 
+}
+
+.modal-background {
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     background: rgba(0,0,0,0.45);
 }
-.modalbody {
+
+.modal-body {
     position: relative;
     width: 300px;
     height: 150px;
@@ -72,35 +99,75 @@ td:hover {
     border-radius: 2%;
     box-shadow: 5px 5px 0px 0 rgba(21, 21, 21, 0.5);
 }
+
 button {
     width: 130px;
     height: 40px;
     font-size: 15px;
 }
+
 button:hover {
     background-color: gray;
     color: white;
 }
-.modalclose {
+
+.modal-close {
     float: right;
     padding-right: 10px;
 }
-.modaltitle {
+
+.modal-title {
     padding-top: 20px;
     text-transform: uppercase
 }
+
 .hide {
     display: none;
 }
+
+a {
+    text-decoration: none;
+    color: #133358;
+}
+
+#instructions {
+    width: 500px;
+    text-align: left;
+    margin: auto;
+    padding-top: 20px;
+}
+
 @media screen and (max-width: 660px) {
     body {
-        width: 400px;
+        width: 350px;
+        background-image: url("../img/bgconnectfour.png");
+        background-attachment: relative;
+        background-size: contain;
     }
+   
+    header {
+        display: grid;
+        grid-template-rows: 1fr 0.5fr;
+        grid-template-columns: 1fr 1fr 0.5fr;
+        grid-template-areas: "header header header"
+                             "player instructions reset";
+        align-items: center;
+        justify-content: center;
+    }
+
     table {
-        width: 400px;
+        width: 350px;
     }
+   
     td {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
+    }
+   
+    #instructions {
+        width: 300px;
+        text-align: left;
+        margin: auto;
+        padding-top: 20px;
     }
 }
